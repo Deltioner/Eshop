@@ -1,21 +1,43 @@
-'use client';
+"use client";
 import React from "react";
 import { AlertOctagon, BadgeCheck, Euro, ShoppingCart } from "lucide-react";
 import SkeletonProductInfo from "./SkeletonProductInfo";
-import { on } from "events";
-import {useUser} from "@clerk/nextjs";
+import { useUser } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
+import CartApis from "../../_utils/CartApis";
+import { useContext } from "react";
+import { CartContext } from "../../_context/CartContext";
 
 function ProductInfo({ product }) {
-  const {user} = useUser();
+  const { user } = useUser();
   const router = useRouter();
-  const handelAddToCart = () => {
-    if(!user){
-      router.push("/sign-up");
-    }else{
-
+  const { cart, setCart } = useContext(CartContext);
+  const handleAddToCart = () => {
+    if (!user) {
+      router.push("/sign-in");
+    } else {
+      const data = {
+        data: {
+          username: user.fullName,
+          email: user.primaryEmailAddress.emailAddress,
+          products: [product?.id],
+        },
+      };
+      CartApis.AddToCart(data)
+        .then((res) => {
+          setCart((oldCart) => [
+            ...oldCart,
+            {
+              id: res?.data?.data?.id,
+              product,
+            },
+          ]);
+        })
+        .catch((error) => {
+          console.log("Error", error);
+        });
     }
-  }
+  };
   return (
     <div>
       {product?.documentId ? (
@@ -40,7 +62,8 @@ function ProductInfo({ product }) {
             {product?.price} <Euro className="" />
           </h2>
 
-          <button onClick={() => {handelAddToCart()}}
+          <button
+            onClick={() => handleAddToCart()}
             className="flex gap-2 p-3 text-white rounded-lg
       bg-primary hover:bg-teal-600"
           >

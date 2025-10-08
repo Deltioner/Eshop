@@ -12,7 +12,6 @@ function ProductDetails({ params }) {
   const { productId } = React.use(params);
 
   const path = usePathname();
-  console.log("path", path);
 
   const [productDetails, setProductDetails] = useState(null);
   const [productList, setProductList] = useState([]);
@@ -23,7 +22,6 @@ function ProductDetails({ params }) {
     const getProductById_ = async () => {
       try {
         const res = await ProductApis.getProductById(productId);
-        console.log("product item", res.data.data);
         setProductDetails(res.data.data); // خزّن البيانات
         getProductListByCategory(res.data.data);
       } catch (error) {
@@ -36,7 +34,6 @@ function ProductDetails({ params }) {
 
   const getProductListByCategory = (product) => {
     ProductApis.getProductsByCategory(product?.category).then((res) => {
-      console.log(res?.data.data);
       setProductList(res?.data.data);
     });
   };
