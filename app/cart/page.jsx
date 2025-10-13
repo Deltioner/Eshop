@@ -13,17 +13,15 @@ function page() {
     return total;
   };
   const deleteCartItemFromList = (id) => {
-    CartApis.deleteCartItem(id)
-      .then((res) => {
-        if (res)
-          setCart((oldCart) =>
-            oldCart.filter((item) => item?.id !== id)
-          );
-      })
-      .catch((error) => {
-        console.log("error", error);
-      });
-  };
+  CartApis.deleteCartItem(id)
+    .then((res) => {
+      setCart((oldCart) => oldCart.filter((item) => item.id !== res?.data?.data?.id));
+    })
+    .catch((error) => {
+      console.error("Error deleting cart item:", error);
+    });
+};
+
   return (
     <section>
       <div className="mx-auto max-w-screen-xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
@@ -36,7 +34,7 @@ function page() {
 
           <div className="mt-8">
             <ul className="space-y-4">
-              {cart?.map((item) => (
+              {cart.map((item) => (
                 <li key={item?.id} className="flex items-center gap-4">
                   <img
                     src={item?.product?.banner?.url}
@@ -62,9 +60,7 @@ function page() {
                       <dd className="inline">{item?.product?.price} €</dd>
                     </div>
                     <button
-                      onClick={() => 
-                        deleteCartItemFromList(item?.id)
-                      }
+                      onClick={() => deleteCartItemFromList(item?.id)}
                       className="text-gray-600 transition hover:text-red-600"
                     >
                       <span className="sr-only">Remove item</span>
@@ -108,7 +104,9 @@ function page() {
                 </div>
               </div>
             </div>
-            <h2 className="text-gray-400 text-[12px]">Note : All Items Will be Sent Via Email or Post.</h2>
+            <h2 className="text-gray-400 text-[12px]">
+              Note : All Items Will be Sent Via Email or Post.
+            </h2>
           </div>
         </div>
       </div>

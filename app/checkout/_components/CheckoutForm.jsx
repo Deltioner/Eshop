@@ -36,8 +36,9 @@ function CheckoutForm() {
     }
 
     // Create the PaymentIntent and obtain clientSecret
-    const res = await fetch("/create-intent", {
+    const res = await fetch("api/create-intent", {
       method: "POST",
+      body: JSON.stringify({ amount: 10 }),
     });
 
     const { client_secret: clientSecret } = await res.json();
@@ -47,7 +48,7 @@ function CheckoutForm() {
       elements,
       clientSecret,
       confirmParams: {
-        return_url: "https://example.com/order/123/complete",
+        return_url: "http://localhost:3000/payment-confirm",
       },
     });
 

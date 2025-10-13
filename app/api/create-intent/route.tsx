@@ -13,9 +13,9 @@ export async function POST(request: any) {
       amount: Number(amount) * 100,
       currency: "eur",
     });
-    return NextResponse.json(paymentIntent.client_secret, { status: 200 });
+    return NextResponse.json({ clientSecret: paymentIntent.client_secret}, { status: 200 });
   } catch (error: any) {
-    return new NextResponse(error, {
+    return new NextResponse( error.message, {
       status: 400,
     });
   }

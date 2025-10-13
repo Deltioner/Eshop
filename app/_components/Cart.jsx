@@ -13,8 +13,7 @@ function Cart() {
     >
       <div className="mt-4 space-y-6">
         <ul className="space-y-4">
-          {cart?.map((item) =>(
-            console.log('cart',item),
+          {cart.map((item) =>(
             <li key={item?.id} className="flex items-center gap-4">
               <img
                 src={item?.product?.banner?.url}
