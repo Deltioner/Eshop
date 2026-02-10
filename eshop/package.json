@@ -1,0 +1,33 @@
+{
+  "name": "eshop",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@clerk/nextjs": "^6.33.0",
+    "@react-email/components": "1.0.1",
+    "@stripe/react-stripe-js": "^5.2.0",
+    "@stripe/stripe-js": "^8.0.0",
+    "axios": "^1.13.2",
+    "lucide-react": "^0.522.0",
+    "next": "^15.5.4",
+    "react": "19.2.1",
+    "react-dom": "19.2.1",
+    "resend": "^6.5.2",
+    "stripe": "13.2.0",
+    "tailwind": "^2.3.1"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "24.5.2",
+    "@types/react": "19.1.15",
+    "react-email": "5.0.6",
+    "tailwindcss": "^4",
+    "typescript": "5.9.2"
+  }
+}
